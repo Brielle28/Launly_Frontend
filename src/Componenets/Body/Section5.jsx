@@ -62,59 +62,15 @@ const RightSide = () => {
   );
 };
 
-const BottomPart = () => {
-  return (
-    <div className="absolute z-10 mt-[6.5rem]">
-      <div className="w-[1200px] h-[138.11px] rounded-full bg-[#FFA33E] relative flex gap-[20px]">
-        <div className="w-[166.67px] h-[51.11px] absolute bg-white rounded-full flex justify-center items-center mt-[3rem] ml-[2rem]">
-          <img
-            src="/logoipsum-265.png"
-            className=" w-[126.67px] h-[30.94px]"
-          ></img>
-        </div>
-        <div className="w-[166.67px] h-[51.11px] absolute bg-white rounded-full flex justify-center items-center mt-[3rem] ml-[14rem]">
-          <img
-            src="/logoipsum-264.png"
-            className=" w-[126.67px] h-[30.94px]"
-          ></img>
-        </div>
-        <div className="w-[166.67px] h-[51.11px] absolute bg-white rounded-full flex justify-center items-center mt-[3rem] ml-[26rem]">
-          <img
-            src="/logoipsum-261.png"
-            className=" w-[126.67px] h-[30.94px]"
-          ></img>
-        </div>
-        <div className="w-[166.67px] h-[51.11px] absolute bg-white rounded-full flex justify-center items-center mt-[3rem] ml-[38rem]">
-          <img
-            src="/logoipsum-259.png"
-            className=" w-[126.67px] h-[30.94px]"
-          ></img>
-        </div>
-        <div className="w-[166.67px] h-[51.11px] absolute bg-white rounded-full flex justify-center items-center mt-[3rem] ml-[50rem]">
-          <img
-            src="/logoipsum-254.png"
-            className=" w-[126.67px] h-[30.94px]"
-          ></img>
-        </div>
-        <div className="w-[166.67px] h-[51.11px] absolute bg-white rounded-full flex justify-center items-center mt-[3rem] ml-[62rem]">
-          <img
-            src="/logoipsum-2.png"
-            className=" w-[126.67px] h-[30.94px]"
-          ></img>
-        </div>
-      </div>
-    </div>
-  );
-};
+
 
 export const NoFadingAway = () => {
   return (
-    <div className=" mx-auto justify-center gap-[50px] mb-[170px]">
+    <div className=" mx-auto justify-center gap-[50px] mb-[100px]">
       <div className="flex gap-[50px]">
         <LeftSide />
         <RightSide />
       </div>
-    <BottomPart />
     </div>
   );
 };

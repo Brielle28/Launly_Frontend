@@ -1,6 +1,6 @@
 export const SolutionsSection = () => {
   return (
-    <section className="bg-[#6BBEC4]">
+    <section className="bg-[#6BBEC4] relative">
       <div className="">
         <div className=" relative mx-[250px]">
           <span className="capitalize flex justify-center text-[50px] text-center items-center text-[#fff] leading-[64px] font-extrabold pt-[110px] w-[720.53px] fontnunito">
@@ -25,7 +25,7 @@ export const SolutionsSection = () => {
 
         <img
           src="/a-set-of-different-detergents-sponges-and-a-yell-2022-06-22-16-19-00-utc3.png"
-          className="w-[15rem] -mt-[30.3rem] ml-[63.95rem] absolute overflow-x-hidden"
+          className="w-[15rem] absolute overflow-x-hidden top-0 right-0"
         />
         <div className="absolute w-[15rem] -mt-[10.5rem]">
           <img src="/a-set-of-different-detergents-sponges-and-a-hand-2022-06-22-16-11-41-utc2-1.png"></img>
