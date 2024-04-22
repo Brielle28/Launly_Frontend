@@ -1,17 +1,17 @@
 export const accordionData = [
   {
-    title: "What is Flowbite?",
+    title: "Q: How does your laundry pick-up and delivery service work?",
     content:
-      "Flowbite is an open-source library of interactive components built on top of Tailwind CSS including buttons, dropdowns, modals, navbars, and more.",
+      `A: Our laundry pick-up and delivery service is designed for your convenience. Simply schedule a pick-up time through our app or website, and our team will collect your laundry from your specified location. Once cleaned, your laundry will be neatly folded or hung and delivered back to you at the agreed-upon time.`
   },
   {
-    title: "Is there a Figma file available?",
+    title: "Q: What types of laundry services do you offer?",
     content:
-      "Flowbite is first conceptualized and designed using the Figma software so everything you see in the library has a design equivalent in our Figma file.",
+      `A: We offer a range of laundry services to meet your needs. Our services include wash and fold, dry cleaning, and specialty item cleaning. Whether you need everyday clothes laundered or delicate garments dry cleaned, we've got you covered.`,
   },
   {
-    title: "What are the differences between Flowbite and Tailwind UI?",
+    title: "Q: Is my laundry safe and secure during the cleaning process?",
     content:
-      "The main difference is that the core components from Flowbite are open source under the MIT license, whereas Tailwind UI is a paid product. Another difference is that Flowbite relies on smaller and standalone components, whereas Tailwind UI offers sections of pages.",
+     `A: Yes, we prioritize the safety and security of your laundry at every step. Our experienced team follows strict protocols to ensure that your garments are handled with care and attention to detail. Additionally, our facilities are equipped with state-of-the-art security measures to safeguard your items while they are being cleaned. You can trust us to treat your laundry with the utmost care and respect.`,
   },
 ];
