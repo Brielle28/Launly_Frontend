@@ -9,9 +9,7 @@ const Footer = () => {
             <img src="/logo3.png" className="w-[189.14px] h-[71.63px]"></img>
 
             <p className="text-base font-normal text-white w-[287.67px] mt-[19.04px]">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-              ac faucibus mi, et tempor eros. Donec in quam id lacus dignissim
-              varius eu sed ex.
+            Elevate your laundry experience with us. From convenient booking to premium cleaning services, we're your trusted partner for a hassle-free laundry solution.
             </p>
           </div>
 
@@ -37,15 +35,15 @@ const Footer = () => {
                 src="/locationicon.svg"
                 className="w-4 h-4 mt-[0.4rem]"
               ></img>
-              <span className="">2443 Oak Ridge Omaha, QA45065</span>
+              <span className=""> Enugu state,Nigeria</span>
             </div>
             <div className="flex mt-[23px] gap-2">
               <img src="/phoneicon.svg" className="w-4 h-4 mt-[0.4rem]" />
-              <span>207-8767-452</span>
+              <span>+234-703-7850-420</span>
             </div>
             <div className="flex mt-[23px] gap-2">
               <img src="/mailicon.svg" className="w-4 h-4 mt-[0.4rem]"></img>
-              <span>support@site.com</span>
+              <span>launly@site.com</span>
             </div>
           </nav>
         </div>

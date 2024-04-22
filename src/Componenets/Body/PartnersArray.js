@@ -3,7 +3,9 @@ export const PartnersArray = [
     imgsrc: "/p1.jpg",
     name:"Eddie Smith",
     role: "customer",
-    text : "Lorem ipsum dolor sit amet,consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis,pulvinar dapibus leo.",
+    text : `I am highly impressed by the professionalism these young guys have
+    demonstrated. They not only picked it from my doorstep but also
+    delivered it within the given time.`,
 
    },
 
@@ -11,7 +13,8 @@ export const PartnersArray = [
     imgsrc: "/p3.jpg",
     name:"Joe Miller",
     role: "customer",
-    text : "Lorem ipsum dolor sit amet,consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis,pulvinar dapibus leo.",
+    text : `  Very good service! Always polite and quick turn around between
+    pick up and drop of! Would definitely recommend!`,
 
    } ,
 
@@ -19,7 +22,9 @@ export const PartnersArray = [
     imgsrc: "/p7.jpg",
     name:"Jake Blaire",
     role: "customer",
-    text : "Lorem ipsum dolor sit amet,consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis,pulvinar dapibus leo.",
+    text : `These guys are the greatest! My favorite coat was stained and I
+    needed back for my job interview on the next day. As they promised
+    I got my coat on time.`,
 
    } 
 ]
