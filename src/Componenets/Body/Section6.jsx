@@ -11,7 +11,7 @@ const Partners = () => {
           
             <span className="text-[#54595F] font-semibold text-[20.8px] flex items-center justify-center pt-7"> {item.name}</span>
             <span className="text-[#6BBEC4] text-[14.4px] font-bold capitalize flex items-center justify-center">{item.role}</span>
-            <p className="text-base w-[236.34px] text-center ml-[24.52px] font-normal text-[#54595F] flex items-center justify-center "> {item.text}</p>
+            <p className="text-base w-[300px] text-center px-[20px] text-[12px] font-normal text-[#54595F] flex items-center justify-center "> {item.text}</p>
           </div>
         ))}
       </div>
