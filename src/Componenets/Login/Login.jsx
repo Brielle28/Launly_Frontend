@@ -1,21 +1,29 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useContext } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { UserContext } from "../context/Userprovider";
+import { UserProvider } from "../context/Userprovider";
 import { ToastContainer, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { API_URI } from "../Api/Api";
-import { UserContext } from "../context/Userprovider";
-import "../../index.css"
-const RegisterPage = () => {
-  const navigate = useNavigate();
-  const {isloading, setIsloading} = useContext(UserContext)
 
-  // const { LoginEmail, LoginName } = useContext(AuthContext);
+// when getting the error message of "422" we use this headers to change the content type from the json type to "application/x-www-form-urlencoded" this is so because the backend sets the content type
+const config = {
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded", // Set the desired content type here
+  },
+};
+
+const Login = () => {
+  const navigate = useNavigate();
+  const { authUser, setAuthUser, isloading, setIsloading } =
+    useContext(UserContext);
+
+  // setting the input form with a useState and  setting the handling changes made in the input form fields
   const [formFields, setFormFields] = useState({
     email: "",
     password: "",
-    name: "",
   });
   const handleChange = (event) => {
     setFormFields({
@@ -23,9 +31,9 @@ const RegisterPage = () => {
       [event.target.name]: event.target.value,
     });
   };
-  // toastify
+  // toastfy
   const notifySuccess = () => {
-    toast.success("Registration successful!", {
+    toast.success("Login successful!", {
       position: "top-left",
       autoClose: 5000,
       hideProgressBar: false,
@@ -38,7 +46,7 @@ const RegisterPage = () => {
     });
   };
   const notifyError = () => {
-    toast.error("Registration Not successful please try again!", {
+    toast.error("Login Not successful please try again!", {
       position: "top-left",
       autoClose: 5000,
       hideProgressBar: false,
@@ -50,37 +58,46 @@ const RegisterPage = () => {
       transition: Zoom,
     });
   };
-  const Post = (e) => {
-    setIsloading(true)
+  const LoginAxios = (e) => {
     e.preventDefault();
+ 
+      setIsloading(true);
     // validation: to prevent the user for submitting an empty folder
-    if (
-      formFields.name == "" ||
-      formFields.email == "" ||
-      formFields.password == ""
-    ) {
+    if (formFields.email == "" || formFields.password == "") {
       alert("please enter all fields");
     }
+    // posting to axio
+    console.log(formFields);
     axios
-      .post(`${API_URI}/users`, {
-        full_name: formFields.name,
-        email: formFields.email,
-        password: formFields.password,
-      })
+      .post(
+        `${API_URI}/login/oauth`,
+        {
+          username: formFields.email,
+          password: formFields.password,
+        },
+        config
+      )
       .then(function (response) {
         console.log(response);
-        notifySuccess();
-        navigate("/login");
+          console.log(response.data);
+          notifySuccess()
+          // set the user email and user name
+          setAuthUser(response.data);
+          const token = response.data.access_token;
+          localStorage.setItem("token", token);
+          navigate("/dash");
       })
       .catch(function (error) {
-        setIsloading(false)
         console.log(error);
         notifyError();
+      })
+      .finally(function () {
+        setIsloading(false);
+        // always executed
       });
   };
-  
+
   return (
-    <>
     <div className="flex min-h-screen bg-blue-50">
       {/* Illustration and Info Container */}
       <div className="w-1/2 flex flex-col justify-center items-center bg-teal-600 px-12 text-white">
@@ -104,51 +121,19 @@ const RegisterPage = () => {
       </div>
       {/* Form Container */}
       <div className="w-1/2 flex items-center justify-center ">
-        <form className="max-w-md mt-5 w-full space-y-[10px] p-10 bg-white rounded-lg shadow" onSubmit={Post}>
+        <form
+          className="max-w-md mt-5 w-full space-y-[10px] p-10 bg-white rounded-lg shadow"
+          onSubmit={LoginAxios}
+        >
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-[50px] font-bold text-gray-700">
-              Create an account
+            <h2
+              className="text-[50px] font-bold text-gray-700"
+              style={{ text: "15px" }}
+            >
+              Login !
             </h2>
           </div>
           {/* ... (the rest of your form fields go here) */}
-          {/* <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Full Name
-            </label>
-            <input
-              type="text"
-              name="fullName"
-              value={formFields.name}
-              required
-              className="mt-1 w-full rounded-[30px] border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200"
-              onChange={handleChange}
-              style={{
-                borderRadius: "10px",
-                border: 0,
-                outline: 0,
-                background: "rgba(0,128,128,0.15)",
-              }}
-            />
-          </div> */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Fullname
-            </label>
-            <input
-              type="name"
-              name="name"
-              value={formFields.name}
-              onChange={handleChange}
-              required
-              className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-teal-500 focus:border-[1px] focus:ring focus:ring-teal-200"
-              style={{
-                borderRadius: "10px",
-                border: 0,
-                outline: 0,
-                background: "rgba(0,128,128,0.15)",
-              }}
-            />
-          </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Email
@@ -157,9 +142,9 @@ const RegisterPage = () => {
               type="email"
               name="email"
               value={formFields.email}
+              onChange={handleChange}
               required
               className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200"
-              onChange={handleChange}
               style={{
                 borderRadius: "10px",
                 border: 0,
@@ -187,24 +172,36 @@ const RegisterPage = () => {
               }}
             />
           </div>
+          <div className="flex items-end justify-end py-2">
+            <Link to="/forgetpassword">
+              <p className="text-teal-600 hover:text-teal-700 font-medium">
+                Forget password?
+              </p>
+            </Link>
+          </div>
           {/* create account button */}
           <div className="mt-8">
-            <button
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent
-                        text-sm font-medium rounded-md text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2
+            {/* <Link> */}
+              <button
+                type="submit"
+                
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent
+              text-sm font-medium rounded-md text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2
                         focus:ring-offset-2 focus:ring-orange-500"
-            >
-              <span
+              >
+                <span
                   class="loader"
                   style={{ display: isloading ? "flex" : "none" }}
                 ></span>
-                <p className="text-white"
+                <p
+                  className="text-white"
                   style={{ display: isloading ? "none" : "flex" }}
-                 >
-              Create an Account
+                >
+                  {" "}
+                  Login{" "}
                 </p>
-            </button>
-            <ToastContainer
+              </button>
+              <ToastContainer
                 position="top-left"
                 autoClose={5000}
                 hideProgressBar={false}
@@ -218,64 +215,54 @@ const RegisterPage = () => {
                 transition={Zoom}
                 key={Math.random()}
               />
+            {/* </Link> */}
           </div>{" "}
           {/* already have an account */}
           <div className="text-center">
             <p className="text-sm">
-              Already have an account?{" "}
-              <Link to="/login">
-              <p className="text-teal-600 hover:text-teal-700 font-medium" >
-                Log In
-              </p>
+              Don't have an account?{" "}
+              <Link to="/register">
+                <p className="text-teal-600 hover:text-teal-700 font-medium">
+                  Sign up
+                </p>
               </Link>
             </p>
           </div>
         </form>
       </div>
     </div>
-    </>
   );
 };
 
-export default RegisterPage;
+export default Login;
 
-
-
-
-
-
-
-// import React, { useState, useContext} from "react";
-// import { useNavigate } from "react-router-dom";
+// import React, { useState, useContext } from "react";
 // import axios from "axios";
+// import { ToastContainer, toast, Zoom } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 // import { FcGoogle } from "react-icons/fc";
 // import { FaFacebook } from "react-icons/fa6";
 // import { Link } from "react-router-dom";
 // import { API_URI } from "../Apis/Api";
 // import { COVENE_URL } from "../Apis/Api1";
-// import { ToastContainer, toast, Zoom } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+// import { UserContext } from "../components/Context/UserProvider";
+// import { useNavigate } from "react-router-dom";
+// import Layout from "../components/Dashboard/Layout";
+// // when getting the error message of "422" we use this headers to change the content type from the json type to "application/x-www-form-urlencoded" this is so because the backend sets the content type
+// const config = {
+//   headers: {
+//     "Content-Type": "application/x-www-form-urlencoded", // Set the desired content type here
+//   },
+// };
 
-// // import { AuthContext } from "../components/Context/AuthProvider";
+// const Login = () => {
+//   const navigate = useNavigate()
+//   const { authUser,setAuthUser, isloading, setIsloading } =
+//     useContext(UserContext);
 
-// const Register2 = () => {
-//   const navigate = useNavigate();
-
-//   // const { LoginEmail, LoginName } = useContext(AuthContext);
-//   const [formFields, setFormFields] = useState({
-//     email: "",
-//     password: "",
-//     name: "",
-//     // phoneNumber: "",
-//   });
-//   const handleChange = (event) => {
-//     setFormFields({
-//       ...formFields,
-//       [event.target.name]: event.target.value,
-//     });
-//   };
+//   // sucess and error toastify
 //   const notifySuccess = () => {
-//     toast.success("Registration successful!", {
+//     toast.success("login successful!", {
 //       position: "top-left",
 //       autoClose: 5000,
 //       hideProgressBar: false,
@@ -288,7 +275,7 @@ export default RegisterPage;
 //     });
 //   };
 //   const notifyError = () => {
-//     toast.error("Registration Not successful please try again!", {
+//     toast.error("login Not successful please try again!", {
 //       position: "top-left",
 //       autoClose: 5000,
 //       hideProgressBar: false,
@@ -300,47 +287,70 @@ export default RegisterPage;
 //       transition: Zoom,
 //     });
 //   };
+//   // setting the input form with a useState and  setting the handling changes made in the input form fields
+//   const [formFields, setFormFields] = useState({
+//     username: "",
+//     password: "",
+//   });
+//   const handleChange = (event) => {
+//     setFormFields({
+//       ...formFields,
+//       [event.target.name]: event.target.value,
+//     });
+//   };
 
-//   const Post = (e) => {
+//   // calling the api
+//   const Login = (e) => {
+//     {
+//       setIsloading(true);
+//     }
 //     e.preventDefault();
 //     // validation: to prevent the user for submitting an empty folder
-//     if (
-//       formFields.name == "" ||
-//       formFields.email == "" ||
-//       formFields.password == ""
-//     ) {
+//     if (formFields.username == "" || formFields.password == "") {
 //       alert("please enter all fields");
 //     }
 //     // posting to axio
-//     //
+//     console.log(formFields);
 //     axios
-//       .post(`${API_URI}/users`, {
-//         full_name: formFields.name,
-//         email: formFields.email,
-//         password: formFields.password,
-//         // phone: formFields.phoneNumber,
-//       })
+//       .post(
+//         `${API_URI}/login/oauth`,
+//         {
+//           ...formFields,
+//         },
+//         config
+//       )
 //       .then(function (response) {
 //         console.log(response);
-//         // notifySuccess();
-//         navigate("/login");
-
-//         // const userEmail = response.data.data[0].email;
-//         // const userName = response.data.data[0].name;
-//         // LoginName(userName);
-//         // LoginEmail(userEmail);
-//         // console.log(userEmail, userName);
+//         if (response.status === 200) {
+//           // If successful, call the notify function to display success toast
+//           notifySuccess();
+//           console.log(response.data)
+//           // set the user email and user name
+//           setAuthUser(response.data)
+//           const token = response.data.access_token;
+//           localStorage.setItem('token',token)
+//           navigate('/dash')
+//           // console.log(token);
+//         } else {
+//           // If not successful, display error toast with the error message
+//           notifyError();
+//         }
 //       })
 //       .catch(function (error) {
 //         console.log(error);
-//         // notifyError();
+//         notifyError();
+//       })
+//       .finally(function () {
+//         setIsloading(false);
+//         // always executed
 //       });
 //   };
+//   // console.log(authUser,'auth user here')
 //   return (
 //     <>
 //       <div className="flex flex-row h-screen w-full">
-//         <div className="w-[45%] pt-10">
-//           <div className="flex flex-row justify-center items-center pt-1 pr-[300px] gap-3">
+//         <div className="w-[45%]">
+//           <div className="flex flex-row justify-center items-center pt-10 pr-[350px] gap-3">
 //             <img
 //               src="/logo.jpg"
 //               alt="logo"
@@ -348,69 +358,62 @@ export default RegisterPage;
 //             />
 //           </div>
 //           <div className="flex flex-col justify-center pt-5 ">
-//             <h1 className="text-[#3272A4] font-extrabold text-[35px] pl-28">
-//               New to Laundrex ?
+//             <h1 className="text-[#3272A4] font-extrabold text-[40px] pl-28">
+//               Welcome
 //             </h1>
+//             <p className="text-[40px] leading-5 pl-28 text-[#121749] font-light">
+//               {" "}
+//               Login to wash{" "}
+//             </p>
 //           </div>
-//           <form className="flex flex-col pt-7 pl-28 gap-5" onSubmit={Post}>
-//             <div className="flex flex-col">
-//               <span> Full Name </span>
-//               <input
-//                 type="text"
-//                 className="border-0 outline-0 focus:border-red-900 border-b-2 border-[#3272A4] w-[350px] leading-3"
-//                 value={formFields.name}
-//                 onChange={handleChange}
-//                 name="name"
-//               />
-//             </div>
-
+//           <form className="flex flex-col pt-7 pl-28 gap-5" onSubmit={Login}>
 //             <div className="flex flex-col">
 //               <span>Email</span>
 //               <input
-//                 type="email"
+//                 type="username"
 //                 className="border-0 outline-0 focus:border-red-900 border-b-2 border-[#3272A4] w-[350px] leading-3"
-//                 value={formFields.email}
+//                 value={formFields.username}
 //                 onChange={handleChange}
-//                 name="email"
+//                 name="username"
 //               />
 //             </div>
-//             <div className="flex flex-col">
-//               <span>Password</span>
+//             <div class="relative">
 //               <input
 //                 type="password"
-//                 className="border-0 outline-0 focus:border-red-900 border-b-2 border-[#3272A4] w-[350px] leading-3"
+//                 class="peer border-0 outline-none placeholder:text-transparent border-b-2 w-[350px] leading-7 border-[#3272A4]"
+//                 placeholder="Password"
 //                 value={formFields.password}
 //                 onChange={handleChange}
 //                 name="password"
 //               />
+//               <label class="absolute left-0 -top-1/2 translate-y-1/2 peer-focus:-top-8 transition-all duration-100 peer-placeholder-shown:-top-1/2">
+//                 Password
+//               </label>
 //             </div>
-//             {/* <div className="flex flex-col">
-//               <span>Phone number </span>
-//               <input
-//                 type="phoneNumber"
-//                 className="border-0 outline-0 focus:border-red-900 border-b-2 border-[#3272A4] w-[350px] leading-3"
-//                 value={formFields.phoneNumber}
-//                 onChange={handleChange}
-//                 name="phoneNumber"
-//               />
-//             </div> */}
 //             <div className="flex flex-row justify-between w-[350px]">
 //               <div className="flex flex-row items-start ">
 //                 <input type="checkbox" className="h-[15px] " />
-//                 <p className="pl-[10px] text-[11px]">
-//                   Accept Terms and Conditions
+//                 <p className="pl-[10px] text-[11px]">Remember Me</p>
+//               </div>
+//               <div>
+//                 <p className="text-[11px]">
+//                   <Link to="/forget">Forgot Password ?</Link>
 //                 </p>
 //               </div>
 //             </div>
 //             <div className="pt-8">
 //               <button className="w-[350px] h-[40px] rounded-xl bg-[#3272A4]">
-//                 <p className="text-white">
-//                   <button type="button">
-//                     CREATE ACCOUNT{" "}
-//                   </button>
+//                 <p
+//                   className="block pl-[150px] text-white "
+//                   style={{ display: isloading ? "flex" : "none" }}
+//                 >
+//                   loading......
 //                 </p>
+//                 <p className="text-white pl-[150px]"
+//                 style={{ display: isloading ? "none" : "flex" }}
+//                 >LOGIN</p>
 //               </button>
-//               {/* <ToastContainer
+//               <ToastContainer
 //                 position="top-left"
 //                 autoClose={5000}
 //                 hideProgressBar={false}
@@ -423,23 +426,22 @@ export default RegisterPage;
 //                 theme="light"
 //                 transition={Zoom}
 //                 key={Math.random()}
-//               /> */}
+//               />
 //             </div>
 //             <div className="flex flex-row items-center ml-3 mt-5 gap-1">
 //               <hr className="h-[2px] w-[100px] bg-[#3272A4]" />
-//               <p className="pb"> or sign up with </p>
+//               <p className="pb"> or login with </p>
 //               <hr className="h-[2px] w-[100px] bg-[#3272A4]" />
 //             </div>
 //             <div className="flex flex-row items-center gap-7 ml-[110px]">
 //               <FcGoogle className="size-full max-w-[35px]" />
 //               <FaFacebook className="size-full max-w-[35px] fill-blue-800" />
 //             </div>
-//             <div className="-mt-3">
+//             <div>
 //               <p className="text-[#3272A4] text-[11px] font-light">
-//                 Already have an account?{" "}
+//                 Don't have an account?{" "}
 //                 <b className="font-semibold">
-//                   {" "}
-//                   <Link to="/login">Login</Link>{" "}
+//                   <Link to="/register">Sign up </Link>
 //                 </b>
 //               </p>
 //             </div>
@@ -447,11 +449,22 @@ export default RegisterPage;
 //         </div>
 //         <div
 //           className="w-[55%] h-screen bg-cover bg-center"
-//           style={{ backgroundImage: "url('/register.jpg')" }}
+//           style={{ backgroundImage: "url('/login.jpg')" }}
 //         ></div>
 //       </div>
 //     </>
 //   );
 // };
 
-// export default Register2;
+// export default Login;
+
+{
+  /* <div className="relative">
+              <input type="password" 
+              className="peer border-0 outline-none placeholder:text-transparent border-b-2 w-[350px] leading-7 border-[#3272A4]"
+              placeholder="Password"
+              />
+              <label 
+              className="absolute left-0 -top-4 translate-y-1/2 peer-focus:-top-8 transition-all duration-500 peer-placeholder-shown:-top-1/2"> Password </label>
+            </div> */
+}

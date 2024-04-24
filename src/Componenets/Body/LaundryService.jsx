@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Button from "../Buttons";
 
 const HeroLeftSide = () => {
@@ -17,8 +18,11 @@ const HeroLeftSide = () => {
           </p>
           <div className="flex gap-[20px] mt-[35.33px]">
             <Button variant="primary2" size="xxxsmall">
+              <Link to="/dash">
               Get started
+              </Link>
             </Button>
+            
             <Button variant="primary" size="xxxsmall">
               Learn more
             </Button>
@@ -74,8 +78,8 @@ const HeroRightside = () => {
               <span className="w-[131.55px] ml-[rem] mt-[0.5rem] font-bold text-[#54595F] fontnunito">
                 Safety Guaranteed
               </span>
-              <p className="w-[134.25px] ml-[1.5rem] mt-[0.1rem] text-[15px] font-normal text-base text-[#54595F]">
-                Your Peace of Mind
+              <p className="w-[134.25px] ml-[1.5rem] mt-[0.1rem] text-[12px] font-normal text-base text-[#54595F]">
+              Security Assured
               </p>
             </div>
           </div>

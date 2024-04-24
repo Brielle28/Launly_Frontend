@@ -2,6 +2,7 @@ import React from "react";
 import Button from "../Buttons/index.jsx";
 // import 'launly/src/styles.js'
 import "../styles.js";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -105,7 +106,7 @@ const Header = () => {
                                 className="menu-item menu-item-type-custom menu-item-object-custom parent hfe-creative-menu"
                               >
                                 <a
-                                  href="template-kit/home/index.html"
+                                  href=""
                                   className="hfe-menu-item"
                                 >
                                   Home
@@ -116,7 +117,7 @@ const Header = () => {
                                 className="menu-item menu-item-type-custom menu-item-object-custom parent hfe-creative-menu"
                               >
                                 <a
-                                  href="template-kit/about-us/index.html"
+                                  href="#Service-Header"
                                   className="hfe-menu-item"
                                 >
                                   About
@@ -127,7 +128,7 @@ const Header = () => {
                                 className="menu-item menu-item-type-custom menu-item-object-custom parent hfe-creative-menu"
                               >
                                 <a
-                                  href="template-kit/contact-us/index.html"
+                                  href="#Footer-Header"
                                   className="hfe-menu-item"
                                 >
                                   Contact
@@ -135,21 +136,18 @@ const Header = () => {
                               </li>
                               <li
                                 id="menu-item-153"
-                                className="menu-item menu-item-type-custom menu-item-object-custom parent hfe-creative-menu"
+                                className="pt-5 menu-item menu-item-type-custom menu-item-object-custom parent hfe-creative-menu"
                               >
-                                <a
-                                  href="template-kit/about-us/index.html"
-                                  className="hfe-menu-item"
-                                >
-                                  Login
-                                </a>
+                                <Link to="/login">
+                                  <a className="hfe-menu-item">Login</a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="">
+                                <Link to="/register">
                                   <Button variant="primary" size="xxxsmall">
                                     Sign up
                                   </Button>
-                                </a>
+                                </Link>
                               </li>
                             </ul>
                           </nav>

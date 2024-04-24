@@ -2,7 +2,7 @@ import { FaRegCopyright } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <section className="bg-[#3A3A3A] pt-[110px] gap-[109.22px]">
+    <section id="Footer-Header" className="bg-[#3A3A3A] pt-[110px] gap-[109.22px]">
       <div className="flex flex-col">
         <div className="mx-auto flex gap-[109.22px] mb-[32.41px]">
           <div>
