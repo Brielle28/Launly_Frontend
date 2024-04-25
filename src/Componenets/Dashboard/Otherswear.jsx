@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"
 import { useContext } from "react";
 import { FaNairaSign } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
 import { UserContext } from "../context/Userprovider";
-import { OthersItems } from "../../utils/OthersItems";
+import { API_URI } from "../Api/Api";
 
 
 export const Otherswear = () => {
@@ -14,6 +15,24 @@ export const Otherswear = () => {
     otherItems,
     setOtherItems,
   } = useContext(UserContext);
+
+  useEffect(()=>{
+    axios.get(`${API_URI}/cloth/cloth?category=other`)
+  .then(function (response) {
+    // handle success
+    console.log(response);
+    setOtherItems(response.data)
+    console.log(otherItems)
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .finally(function () {
+    // always executed
+  });
+  },[])
+
 
   const handleQuantityChange = (id, increment) => {
     setOtherItems((prevItems) => {

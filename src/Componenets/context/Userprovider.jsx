@@ -27,7 +27,7 @@ export const UserProvider = ({ children }) => {
     })
   }
 
-  const [menItems, setMenItems] = useState(MenItems);
+  const [menItems, setMenItems] = useState([]);
   const calculateMenTotalPrice = () => {
     const totalPrice = menItems.reduce(
       (total, item) => total + item.price * item.quantity,
@@ -38,7 +38,7 @@ export const UserProvider = ({ children }) => {
 
   
 
-  const [womenItems, setWomenItems] = useState(WomenItems);
+  const [womenItems, setWomenItems] = useState([]);
   const calculateWomenTotalPrice = () => {
     const totalPrice = womenItems.reduce(
       (total, item) => total + item.price * item.quantity,
@@ -49,7 +49,7 @@ export const UserProvider = ({ children }) => {
 
  
 
-  const [otherItems, setOtherItems] = useState(OthersItems);
+  const [otherItems, setOtherItems] = useState([]);
 
   const calculateOtherTotalPrice = () => {
     const totalPrice = otherItems.reduce(

@@ -19,6 +19,8 @@ import BookWash from "./Componenets/Dashboard/BookWash.jsx"
 import Summary from "./Componenets/Dashboard/Summary.jsx"
 import Profile from "./Componenets/Dashboard/Profile.jsx";
 import Paystack from "./Componenets/Paystack/Paystack.jsx";
+import EmailVerification from "./Componenets/EmailVerification/EmailVerification.jsx";
+import ResetPasswordPage from "./Componenets/ForgetPassword/ResetPasswordPage.jsx";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -33,6 +35,10 @@ export const router = createBrowserRouter([
         element: <Register/>,
       },
       {
+        path: "/verifyemail",
+        element: <EmailVerification/>,
+      },
+      {
         path: "/login",
         element: <LoginPage/>,
       },
@@ -41,9 +47,13 @@ export const router = createBrowserRouter([
         element: <ForgetPasswordPage/>,
       },
       {
+        path: "/resetpasswordpage",
+        element: <ResetPasswordPage/>,
+      },
+      {
         path: "/dash",
-        // element: <Layout/>,
-        element:<ProtectedRoute><Layout/></ProtectedRoute>,
+        element: <Layout/>,
+        // element:<ProtectedRoute><Layout/></ProtectedRoute>,
         children: [
           {
             index: true,

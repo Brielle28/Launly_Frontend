@@ -8,6 +8,7 @@ const ProtectedRoute = ({children}) => {
     const {authUser,setAuthUser} = useContext(UserContext)
     const token = localStorage.getItem('token')
     console.log(authUser,'from protected')
+    console.log(token)
     useEffect(()=>{
       if(token){
         axios.get(`${API_URI}/users`, {
@@ -19,6 +20,7 @@ const ProtectedRoute = ({children}) => {
         .then(function(response){
            console.log(response)
            setAuthUser(response.data)
+           console.log(authUser, "this is the user details");
           console.log(authUser);
         })
         .catch(function(error){
@@ -28,7 +30,8 @@ const ProtectedRoute = ({children}) => {
       }
       setAuthUser('')
     },[])
-
+    
+    
   return (
     <div>
       {!authUser? (

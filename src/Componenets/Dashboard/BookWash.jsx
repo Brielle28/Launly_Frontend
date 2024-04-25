@@ -10,6 +10,7 @@ const BookWash = () => {
   const [showWomen, setShowWomen] = useState(false);
   const [showMen, setShowMen] = useState(true);
   const [showOthers, setShowOthers] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState([]);
   const {
     calculateMenTotalPrice,
     calculateWomenTotalPrice,
@@ -31,11 +32,19 @@ const BookWash = () => {
     setShowOthers(false);
   };
 
+
+
   const handleShowOthers = () => {
     setShowMen(false);
     setShowWomen(false);
     setShowOthers(true);
   };
+
+  const handleOptionsSelected = (options) => {
+    setSelectedOptions(options);
+    console.log(options)
+  };
+
 
   return (
     <>
@@ -54,16 +63,18 @@ const BookWash = () => {
         </div>
         {/* different components for theirs cloths */}
         <div>
-          {showWomen && <WomenWear />}
-          {showMen && <Mencloth />}
-          {showOthers && <Otherswear />}
+          {showWomen && <WomenWear onOptionsSelected={handleOptionsSelected} />}
+          {showMen && <Mencloth onOptionsSelected={handleOptionsSelected} />}
+          {showOthers && (
+            <Otherswear onOptionsSelected={handleOptionsSelected} />
+          )}
         </div>
         {/* total prices */}
         <div className="flex flex-row items-center justify-center mx-14 mt-8">
-        <div className="flex flex-col items-center justify-center mt-4 border-t border-gray-200 bg-white w-[150px] h-24 rounded-xl text-white shadow-xl ">
+          <div className="flex flex-col items-center justify-center mt-4 border-t border-gray-200 bg-white w-[150px] h-24 rounded-xl text-white shadow-xl ">
             <h3 style={{ fontSize: "10px" }}> MALE WEAR </h3>
             <p className="text-[13px] text-black font-semibold">
-          Total Price: {calculateMenTotalPrice()}
+              Total Price: {calculateMenTotalPrice()}
             </p>
           </div>
           <div className="flex flex-col items-center justify-center mt-4 border-t border-gray-200 bg-white w-[150px] h-24 rounded-xl text-white shadow-xl ml-6">
@@ -82,7 +93,7 @@ const BookWash = () => {
         {/* pick up address and phone number */}
         <div className="flex flex-row items-start justify-center mt-5 w-[80%] gap-3 py-5 pl-3 ml-10">
           <div className="flex flex-col items-start justify-center w-[50%]">
-            <h3 style={{fontSize:"22px", fontStyle:"bold"}}>
+            <h3 style={{ fontSize: "22px", fontStyle: "bold" }}>
               {" "}
               Home Address{" "}
             </h3>
@@ -96,7 +107,7 @@ const BookWash = () => {
             />
           </div>
           <div className="flex flex-col items-start justify-center w-[50%]">
-          <h3 style={{fontSize:"22px", fontStyle:"bold"}}>
+            <h3 style={{ fontSize: "22px", fontStyle: "bold" }}>
               {" "}
               Phone Number{" "}
             </h3>
@@ -112,9 +123,9 @@ const BookWash = () => {
         {/* pick up date */}
         <div className="flex flex-row  ml-10 items-start justify-center mt-5 w-[80%] gap-3 py-5 pl-3">
           <div className="flex flex-col items-start justify-center w-[50%]">
-          <h3 style={{fontSize:"22px", fontStyle:"bold"}}>
+            <h3 style={{ fontSize: "22px", fontStyle: "bold" }}>
               {" "}
-              Pick Up date {" "}
+              Pick Up date{" "}
             </h3>
             <input
               type="date"
@@ -126,9 +137,9 @@ const BookWash = () => {
             />
           </div>
           <div className="flex flex-col items-start justify-center w-[50%]">
-          <h3 style={{fontSize:"22px", fontStyle:"bold"}}>
+            <h3 style={{ fontSize: "22px", fontStyle: "bold" }}>
               {" "}
-              Pick up Time {" "}
+              Pick up Time{" "}
             </h3>
             <input
               type="time"
@@ -141,12 +152,12 @@ const BookWash = () => {
         </div>
         {/* confirm order */}
         <Link to="/dash/bookawash/summary" className="w-[60%]">
-        <div className="flex flex-col items-center justify-center mt-7 w-[80%] ml-6">
+          <div className="flex flex-col items-center justify-center mt-7 w-[80%] ml-6">
             <button className="btn w-full bg-[#3272a4] text-white text-[20px] hover:text-[#3272A4]">
               {" "}
               Confirm Order{" "}
             </button>
-        </div>
+          </div>
         </Link>
       </div>
     </>

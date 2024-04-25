@@ -70,13 +70,16 @@ const RegisterPage = () => {
       .then(function (response) {
         console.log(response);
         notifySuccess();
-        navigate("/login");
+        setIsloading(false)
+        alert("A verification link has been sent to your Email")
+        // navigate("/login");
       })
       .catch(function (error) {
         setIsloading(false)
         console.log(error);
         notifyError();
-      });
+        setIsloading(false)
+      })
   };
   
   return (
