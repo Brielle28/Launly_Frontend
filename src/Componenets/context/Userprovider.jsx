@@ -1,7 +1,5 @@
 import { createContext, useState } from "react";
-import { MenItems} from "../../utils/MenItems";
-import {OthersItems} from "../../utils/OthersItems"
-import {WomenItems} from "../../utils/WomenItems"
+
 
 
 export const UserContext = createContext();
@@ -9,6 +7,7 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [authUser,setAuthUser] = useState({})
+  const [orders, setOrders] = useState([])
   
   const [isloading, setIsloading] = useState(null)
 
@@ -87,7 +86,9 @@ export const UserProvider = ({ children }) => {
     isloading,
     setIsloading,
     authUser,
-    setAuthUser
+    setAuthUser,
+    orders,
+    setOrders,
   };
 
   return (
