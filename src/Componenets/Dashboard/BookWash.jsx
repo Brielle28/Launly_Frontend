@@ -148,7 +148,7 @@ const BookWash = () => {
               type="date"
               name="date"
               value={booking.pickup_date}
-              onChange={(e) => setBooking({...booking,time:e.target.value})}
+              onChange={(e) => setBooking({...booking,pickup_date:e.target.value})}
               placeholder="Type here"
               className="input input-bordered w-[80%]"
             />
@@ -160,8 +160,8 @@ const BookWash = () => {
             </h3>
             <input
               type="time"
-              name="time"
-              value={booking.pickup_date}
+              // name="time"
+              // value={booking.pickup_date}
               onChange={(e) => setBooking({...booking,time:e.target.value})}
               className="input input-bordered w-[80%]"
             />
