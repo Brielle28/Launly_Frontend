@@ -9,6 +9,7 @@ import { UserContext } from "../context/Userprovider";
 import { bookawash } from "../Api/Api";
 const BookWash = () => {
   const [showType, setShowType] = useState("men");
+  const navigate = useNavigate()
   const {
     formFields,
     updateFormData,
@@ -33,8 +34,12 @@ const BookWash = () => {
 
   const submit = async () => {
     try {
-      const res = await bookawash(booking);
+      const payload = {...booking, clothes: booking.clothes.map(({id,...rest}) => rest)}
+      const res = await bookawash(payload);
+
       console.log(res);
+      alert(res.data);
+      navigate('/dash/bookawash/summary/paystack')
     } catch (errorBooking) {
       console.log({ errorBooking });
     }
@@ -160,7 +165,7 @@ const BookWash = () => {
           </div>
         </div>
         {/* confirm order */}
-        <Link to="/dash/bookawash/summary" className="w-[60%]">
+
           <div className="flex flex-col items-center justify-center mt-7 w-[80%] ml-6">
             <button
               onClick={submit}
@@ -170,7 +175,7 @@ const BookWash = () => {
               Confirm Order (total:{ booking.total_price})
             </button>
           </div>
-        </Link>
+
       </div>
       <div>{JSON.stringify(booking)}</div>
     </>

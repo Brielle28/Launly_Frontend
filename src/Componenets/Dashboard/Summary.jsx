@@ -9,8 +9,7 @@ import { UserContext } from "../context/Userprovider";
 
 const Summary = () => {
   const {
-    formFields,
-    TotalPrice
+    booking
 
   } = useContext(UserContext);
   return (
@@ -45,7 +44,7 @@ const Summary = () => {
           </div>
           <div className="flex flex-row items-center justify-center pl-7 gap-1">
             <FaNairaSign className="flex-shrink-0 w-4 h-4 text-white transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-            <p className="text-black"> {TotalPrice()}</p>
+            <p className="text-black"> {booking.total_price}</p>
           </div>
         </div>
         <hr class="border border-gray-300 w-[80%] my-4" />
@@ -55,7 +54,7 @@ const Summary = () => {
             <p className="text-[18px] text-black"> Date </p>
           </div>
           <div className="flex flex-row items-center justify-center pl-7 gap-1">
-            <p className="text-black"> {formFields.date} </p>
+            <p className="text-black"> {booking.pickup_date} </p>
           </div>
         </div>
         <hr class="border border-gray-300 w-[80%] my-4" />
@@ -65,7 +64,7 @@ const Summary = () => {
             <p className="text-[18px] text-black"> Time </p>
           </div>
           <div className="flex flex-row items-center justify-center pl-7 gap-1">
-            <p className="text-black"> {formFields.time} </p>
+            <p className="text-black"> {booking.pickup_date} </p>
           </div>
         </div>
         <hr class="border border-gray-300 w-[80%] my-4" />

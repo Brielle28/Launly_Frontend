@@ -3,14 +3,16 @@ import { PaystackButton } from 'react-paystack';
 import { UserContext } from '../context/Userprovider';
 import { UserProvider } from '../context/Userprovider';
 import './paystack.css';
+import { useParams, use } from 'react-router-dom';
 
 const Paystack = () => {
-  const {authUser, formFields} = useContext(UserContext)
+  const {authUser, booking} = useContext(UserContext)
+  const {bookingId} = useParams()
   const publicKey = "pk_test_55a4d99e2813179d94dab988becd18f7d62c39e3";
   const amount = 1000000;
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState(authUser.email);
+  const [name, setName] = useState(authUser.name);
+  const [phone, setPhone] = useState(booking.phone);
 
   const resetForm = () => {
     setEmail('');
