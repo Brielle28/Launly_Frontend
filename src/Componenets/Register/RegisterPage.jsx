@@ -71,8 +71,9 @@ const RegisterPage = () => {
         console.log(response);
         notifySuccess();
         setIsloading(false)
-        alert("A verification link has been sent to your Email")
-        // navigate("/login");
+        alert("registration sucessful")
+        // alert("A verification link has been sent to your Email")
+        navigate("/login");
       })
       .catch(function (error) {
         setIsloading(false)
