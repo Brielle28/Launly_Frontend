@@ -59,7 +59,7 @@ const Dashboards = () => {
             </div>
             <p className="font-semibold text-center pt-5 text-[50px]">₦{totalAmount}</p>
           </div>
-          <div className="max-w-[350px] h-[150px] rounded-[25px] p-6 bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
+          {/* <div className="max-w-[350px] h-[150px] rounded-[25px] p-6 bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="flex flex-row items-start justify-start gap-3 w-[230px]">
               <img src="/pickup1.png" alt="" className="h-8 w-8" />
               <h5 className="font-bold" style={{ fontSize: "25px", paddingTop: "10px" }}>
@@ -67,7 +67,7 @@ const Dashboards = () => {
               </h5>
             </div>
             <p className="font-semibold text-center pt-5 text-[50px]">0</p>
-          </div>
+          </div> */}
         </div>
 
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 mt-16">
