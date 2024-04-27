@@ -7,18 +7,20 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/Userprovider";
 import { API_URI } from "../Api/Api";
 
-const WomenWear = ({ onOptionsSelected }) => {
+const WomenWear = ({ onOptionsSelected, type }) => {
   const navigate = useNavigate(); // Assuming you're using react-router-dom for navigation
   const { womenItems, setWomenItems } = useContext(UserContext);
 
+  const [selectedItem, setSelectedItem] = useState({})
+
   useEffect(() => {
     axios
-      .get(`${API_URI}/cloth/cloth?category=women`)
+      .get(`${API_URI}/cloth/cloth?category=${type}`)
       .then(function (response) {
         // handle success
         console.log(response);
         setWomenItems(response.data);
-        console.log(womenItems);
+        console.log({womenItems});
       })
       .catch(function (error) {
         // handle error
@@ -26,16 +28,18 @@ const WomenWear = ({ onOptionsSelected }) => {
       });
   }, []); // Empty dependency array means this effect runs only once after the initial render
 
-  const handleQuantityChange = (id, increment) => {
-    setWomenItems((prevItems) => {
-      return prevItems.map((item) => {
-        if (item.id === id) {
-          return { ...item, quantity: Math.max(0, item.quantity + increment) };
-        }
-        return item;
-      });
-    });
+  const handleQuantityChange = ({id,image,quantity,...item}, increment) => {
+  const updatedData = {...selectedItem, [id]:{...item,quantity:increment+(selectedItem?.[id]?.quantity??0)}}
+  console.log({updatedData});
+  setSelectedItem(updatedData)
   };
+
+  useEffect(()=>{
+  for (const [key, value] of Object.entries(selectedItem)) {
+      console.log(`Key: ${key}, Value: ${value}`);
+      onOptionsSelected(value)
+  }
+  },[selectedItem,onOptionsSelected])
 
   return (
     <>
@@ -60,14 +64,14 @@ const WomenWear = ({ onOptionsSelected }) => {
               <div className="flex flex-row items-center justify-center gap-2">
                 <span
                   className="btn rounded-full border-2 border-[#3272A4]"
-                  onClick={() => handleQuantityChange(item.id, -1)}
+                  onClick={() => handleQuantityChange(item, -1)}
                 >
                   <FaMinus className="h-3 w-3" />
                 </span>
-                <p className="text-[20px]"> {item.quantity} </p>
+                <p className="text-[20px]"> {selectedItem?.[item?.id]?.quantity??0} </p>
                 <span
                   className="btn rounded-full border-2 border-[#3272A4]"
-                  onClick={() => handleQuantityChange(item.id, 1)}
+                  onClick={() => handleQuantityChange(item, 1)}
                 >
                   <FaPlus className="h-3 w-3" />
                 </span>
