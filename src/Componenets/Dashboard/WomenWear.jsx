@@ -32,11 +32,12 @@ const WomenWear = ({ onOptionsSelected, type, clothes }) => {
     { id, image, quantity, ...item },
     increment
   ) => {
+    const newQuantity = increment + (selectedItem?.[id]?.quantity ?? 0);
     const updatedData = {
       ...selectedItem,
       [id]: {
         ...item,
-        quantity: increment + (selectedItem?.[id]?.quantity ?? 0),
+        quantity:newQuantity<0?0:newQuantity ,
       },
     };
     console.log({ updatedData });

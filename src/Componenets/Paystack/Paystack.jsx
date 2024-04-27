@@ -3,11 +3,16 @@ import { PaystackButton } from 'react-paystack';
 import { UserContext } from '../context/Userprovider';
 import { UserProvider } from '../context/Userprovider';
 import './paystack.css';
-import { useParams} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const Paystack = () => {
   const {authUser, booking} = useContext(UserContext)
-  const {bookingId} = useParams()
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
+  const query = useQuery();
+  const ref = query.get('bookingId')
+  console.log({ref});
   const publicKey = "pk_test_55a4d99e2813179d94dab988becd18f7d62c39e3";
   const amount = 1000000;
   const [email, setEmail] = useState(authUser.email);

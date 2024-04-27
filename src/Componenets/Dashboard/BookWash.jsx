@@ -1,13 +1,17 @@
 import  { useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import {  useNavigate,useLocation } from "react-router-dom";
 import { useContext } from "react";
 import WomenWear from "./WomenWear";
 
 import { UserContext } from "../context/Userprovider";
 import { bookawash } from "../Api/Api";
+
+
 const BookWash = () => {
   const [showType, setShowType] = useState("men");
   const navigate = useNavigate()
+
+
   const {
 
     setBooking,
@@ -37,7 +41,8 @@ const BookWash = () => {
 
       console.log(res);
       alert(res.data);
-      navigate('/dash/bookawash/summary/paystack')
+      navigate(`/dash/bookawash/summary/paystack?bookingId=${res.data.id}`)
+      
     } catch (errorBooking) {
       console.log({ errorBooking });
     }
