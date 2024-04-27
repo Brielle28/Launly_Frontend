@@ -13,7 +13,7 @@ const WomenWear = ({ onOptionsSelected, type, clothes }) => {
   );
 
   useEffect(() => {
-    if (womenItems[0]?.category == type) return;
+
     axios
       .get(`${API_URI}/cloth/cloth?category=${type}`)
       .then(function (response) {
