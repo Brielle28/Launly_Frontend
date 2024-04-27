@@ -40,9 +40,8 @@ const BookWash = () => {
       const res = await bookawash(payload);
 
       console.log(res);
-      alert(res.data);
+      alert("your have succesfully booked a wash kindly press ok to pay ");
       navigate(`/dash/bookawash/summary/paystack?bookingId=${res.data.id}`)
-      
     } catch (errorBooking) {
       console.log({ errorBooking });
     }
@@ -176,12 +175,12 @@ const BookWash = () => {
               className="btn w-full bg-[#3272a4] text-white text-[20px] hover:text-[#3272A4]"
             >
               {" "}
-              Confirm Order (total:{ booking.total_price})
+              Book  (total:{ booking.total_price})
             </button>
           </div>
 
       </div>
-
+      {/* <div>{JSON.stringify(booking)}</div> */}
     </>
   );
 };

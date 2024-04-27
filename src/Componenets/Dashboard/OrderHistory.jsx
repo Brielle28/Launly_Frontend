@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { API_URI } from "../Api/Api";
 import { UserProvider } from "../context/Userprovider";
@@ -6,7 +6,7 @@ import { UserContext } from "../context/Userprovider";
 
 
 const OrderHistory = () => {
-  const { orders, setOrders } = useContext(UserContext);
+  const [  orders, setOrders ] = useState([]);
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -19,8 +19,8 @@ const OrderHistory = () => {
       })
       .then(function (response) {
         // handle success
-        console.log(response);
-        setOrders(response.data);
+        console.log(response.data.data, "response from order page");
+        setOrders(response.data.data);
         console.log(orders);
       })
       .catch(function (error) {
@@ -52,19 +52,19 @@ const OrderHistory = () => {
           </tr>
         </thead>
         <tbody>
-          {orders.map((order, idx) => (
-            <React.Fragment key={order._id}>
+          {orders.map((item)=> (
+            <React.Fragment key={item.id}>
               <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                 <th
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
-                  {order.address}
+                  {item.address}
                 </th>
-                <td className="px-6 py-4">{order.pickup_date}</td>
-                <td className="px-6 py-4">{order.phone}</td>
-                <td className="px-6 py-4">₦{order.total_price}</td>
-                <td className="px-6 py-4">{order.status}</td>
+                <td className="px-6 py-4">{item.pickup_date}</td>
+                <td className="px-6 py-4">{item.phone}</td>
+                <td className="px-6 py-4">₦{item.total_price}</td>
+                <td className="px-6 py-4">{item.status}</td>
               </tr>
             </React.Fragment>
           ))}

@@ -11,8 +11,8 @@ const Paystack = () => {
     return new URLSearchParams(useLocation().search);
   }
   const query = useQuery();
-  const ref = query.get('bookingId')
-  console.log({ref});
+  const refrr = query.get('bookingId')
+  console.log({refrr});
   const publicKey = "pk_test_55a4d99e2813179d94dab988becd18f7d62c39e3";
   const amount = 1000000;
   const [email, setEmail] = useState(authUser.email);
@@ -28,14 +28,16 @@ const Paystack = () => {
   const componentProps = {
     email,
     amount,
+    reference:refrr,
     metadata: {
       name,
       phone,
     },
     publicKey,
-    text: 'Buy Now',
+    text: 'Pay',
     onSuccess: ({ reference }) => {
       resetForm();
+      //api for verify payment
     },
   };
 
@@ -71,7 +73,7 @@ const Paystack = () => {
               <input
                 type="text"
                 id="phone"
-                value={formFields.PhoneNumber}
+                value={booking.phone}
                 onChange={(e) => setPhone(e.target.value)}
               className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200"
 

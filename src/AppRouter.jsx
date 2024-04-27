@@ -52,8 +52,8 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dash",
-        element: <Layout/>,
-        // element:<ProtectedRoute><Layout/></ProtectedRoute>,
+        // element: <Layout/>,
+        element:<ProtectedRoute><Layout/></ProtectedRoute>,
         children: [
           {
             index: true,
