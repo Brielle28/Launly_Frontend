@@ -60,23 +60,23 @@ export const router = createBrowserRouter([
             element: <Dashboards />,
           },
           {
-            path: "/dash/orderhistory",
+            path: "orderhistory",
             element: <OrderHistory/>,
           },
           {
-            path: "/dash/bookawash",
+            path: "bookawash",
             element: <BookWash/>,
           },
           {
-            path: "/dash/bookawash/summary",
+            path: "bookawash/summary",
             element: <Summary/>
           },
           {
-            path: "/dash/logout",
+            path: "logout",
             element: <Logout/>,
           },
           {
-            path: "/dash/bookawash/summary/paystack",
+            path: "bookawash/summary/paystack",
             element: <Paystack/>
           }
          

@@ -9,12 +9,6 @@ export const UserProvider = ({ children }) => {
 
   const [booking, setBooking] = useState({
     clothes: [
-      {
-        category: "men",
-        name: "T-shirt",
-        quantity: 0,
-        price: 0,
-      },
     ],
     address: "123, Example Street, Example City, Example Country",
     instructions: "Please wash with care",
@@ -38,7 +32,7 @@ export const UserProvider = ({ children }) => {
         0
       ),
     });
-  }, [booking]);
+  }, [booking.clothes]);
 
   const value = {
     booking,

@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import  { useState } from "react";
+import {  useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import Otherswear from "./Otherswear";
-import Mencloth from "./Mencloth";
 import WomenWear from "./WomenWear";
 
 import { UserContext } from "../context/Userprovider";
@@ -11,8 +9,7 @@ const BookWash = () => {
   const [showType, setShowType] = useState("men");
   const navigate = useNavigate()
   const {
-    formFields,
-    updateFormData,
+
     setBooking,
     booking,
   } = useContext(UserContext);
@@ -28,6 +25,7 @@ const BookWash = () => {
     );
     return { ...booking, clothes: [...restBooking, option] };
   };
+
   const handleOptionsSelected = (options) => {
     setBooking(updateBooking(options, booking));
   };
@@ -63,7 +61,7 @@ const BookWash = () => {
             { name: "others", type: "other" },
           ].map((item) => (
             <button
-              key={item}
+              key={item.name}
               className="btn w-[20%]"
               style={{
                 backgroundColor: item.type == showType && "rgb(20 184 166",
@@ -76,12 +74,13 @@ const BookWash = () => {
         </div>
         {/* different components for theirs cloths */}
         <div>
-          <WomenWear
+      <WomenWear
             onOptionsSelected={(option) => handleOptionsSelected(option)}
             key={showType}
             clothes={booking.clothes}
             type={showType}
           />
+
         </div>
         {/* total prices */}
         <div className="flex flex-row items-center justify-center mx-14 mt-8">
@@ -177,7 +176,7 @@ const BookWash = () => {
           </div>
 
       </div>
-      <div>{JSON.stringify(booking)}</div>
+
     </>
   );
 };

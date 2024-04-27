@@ -1,27 +1,26 @@
-import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { FaNairaSign } from "react-icons/fa6";
-import { FaMinus } from "react-icons/fa6";
-import { FaPlus } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
-import { UserContext } from "../context/Userprovider";
+import { useEffect, useState } from "react";
+import { FaMinus, FaNairaSign, FaPlus } from "react-icons/fa6";
 import { API_URI } from "../Api/Api";
 
-const WomenWear = ({ onOptionsSelected, type,clothes }) => {
-  const [ womenItems, setWomenItems ] = useState([]);
+const WomenWear = ({ onOptionsSelected, type, clothes }) => {
+  const [womenItems, setWomenItems] = useState([]);
 
-  const [selectedItem, setSelectedItem] = useState(clothes.reduce((acc,cc)=>{
-    return {...acc,[cc.id]:cc}
- },{}))
+  const [selectedItem, setSelectedItem] = useState(
+    clothes.reduce((acc, cc) => {
+      return { ...acc, [cc.id]: cc };
+    }, {})
+  );
 
   useEffect(() => {
+    if (womenItems[0]?.category == type) return;
     axios
       .get(`${API_URI}/cloth/cloth?category=${type}`)
       .then(function (response) {
         // handle success
         console.log(response);
         setWomenItems(response.data);
-        console.log({womenItems});
+        console.log({ womenItems });
       })
       .catch(function (error) {
         // handle error
@@ -29,24 +28,33 @@ const WomenWear = ({ onOptionsSelected, type,clothes }) => {
       });
   }, []); // Empty dependency array means this effect runs only once after the initial render
 
-  const handleQuantityChange = ({id,image,quantity,...item}, increment) => {
-  const updatedData = {...selectedItem, [id]:{...item,quantity:increment+(selectedItem?.[id]?.quantity??0)}}
-  console.log({updatedData});
-  setSelectedItem(updatedData)
-  };
-
-  useEffect(()=>{
-  for (const [key, value] of Object.entries(selectedItem)) {
+  const handleQuantityChange = (
+    { id, image, quantity, ...item },
+    increment
+  ) => {
+    const updatedData = {
+      ...selectedItem,
+      [id]: {
+        ...item,
+        quantity: increment + (selectedItem?.[id]?.quantity ?? 0),
+      },
+    };
+    console.log({ updatedData });
+    setSelectedItem(updatedData);
+    for (const [key, value] of Object.entries(updatedData)) {
       console.log(`Key: ${key}, Value: ${value}`);
-      onOptionsSelected({...value,id:key})
-  }
-  },[selectedItem,onOptionsSelected])
+      onOptionsSelected({ ...value, id: key });
+    }
+  };
 
   return (
     <>
       <div className="flex flex-wrap px-10 w-[100%] items-center justify-evenly gap-y-8 rounded-xl mt-10">
-        {womenItems.map((item,idx) => (
-          <div key={idx} className="flex flex-row items-center justify-center">
+        {womenItems.map((item) => (
+          <div
+            key={item.id}
+            className="flex flex-row items-center justify-center"
+          >
             <div className="flex flex-row items-center justify-center gap-x-8 px-5 rounded-xl shadow-md">
               <div className="flex flex-row items-center gap-3 p-1">
                 <div
@@ -69,7 +77,10 @@ const WomenWear = ({ onOptionsSelected, type,clothes }) => {
                 >
                   <FaMinus className="h-3 w-3" />
                 </span>
-                <p className="text-[20px]"> {selectedItem?.[item?.id]?.quantity??0} </p>
+                <p className="text-[20px]">
+                  {" "}
+                  {selectedItem?.[item?.id]?.quantity ?? 0}{" "}
+                </p>
                 <span
                   className="btn rounded-full border-2 border-[#3272A4]"
                   onClick={() => handleQuantityChange(item, 1)}
