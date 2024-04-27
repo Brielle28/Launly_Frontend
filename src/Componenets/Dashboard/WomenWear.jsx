@@ -7,11 +7,12 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/Userprovider";
 import { API_URI } from "../Api/Api";
 
-const WomenWear = ({ onOptionsSelected, type }) => {
-  const navigate = useNavigate(); // Assuming you're using react-router-dom for navigation
-  const { womenItems, setWomenItems } = useContext(UserContext);
+const WomenWear = ({ onOptionsSelected, type,clothes }) => {
+  const [ womenItems, setWomenItems ] = useState([]);
 
-  const [selectedItem, setSelectedItem] = useState({})
+  const [selectedItem, setSelectedItem] = useState(clothes.reduce((acc,cc)=>{
+    return {...acc,[cc.id]:cc}
+ },{}))
 
   useEffect(() => {
     axios
@@ -37,15 +38,15 @@ const WomenWear = ({ onOptionsSelected, type }) => {
   useEffect(()=>{
   for (const [key, value] of Object.entries(selectedItem)) {
       console.log(`Key: ${key}, Value: ${value}`);
-      onOptionsSelected(value)
+      onOptionsSelected({...value,id:key})
   }
   },[selectedItem,onOptionsSelected])
 
   return (
     <>
       <div className="flex flex-wrap px-10 w-[100%] items-center justify-evenly gap-y-8 rounded-xl mt-10">
-        {womenItems.map((item) => (
-          <div key={item.id} className="flex flex-row items-center justify-center">
+        {womenItems.map((item,idx) => (
+          <div key={idx} className="flex flex-row items-center justify-center">
             <div className="flex flex-row items-center justify-center gap-x-8 px-5 rounded-xl shadow-md">
               <div className="flex flex-row items-center gap-3 p-1">
                 <div

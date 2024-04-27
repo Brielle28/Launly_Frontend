@@ -9,33 +9,13 @@ import { UserContext } from "../context/Userprovider";
 import { bookawash } from "../Api/Api";
 const BookWash = () => {
   const [showType, setShowType] = useState("men");
-  const [selectedOptions, setSelectedOptions] = useState([]);
-
   const {
-    calculateMenTotalPrice,
-    calculateWomenTotalPrice,
-    calculateOtherTotalPrice,
     formFields,
-    setFormFields,
     updateFormData,
+    setBooking,
+    booking,
   } = useContext(UserContext);
-
-  const [booking, setBooking] = useState({
-    clothes: [
-      {
-        category: "men",
-        name: "T-shirt",
-        quantity: 0,
-        price: 0,
-      },
-    ],
-    address: "123, Example Street, Example City, Example Country",
-    instructions: "Please wash with care",
-    total_price: 1000,
-    phone: "string",
-    pickup_date: "2022-12-31",
-    total_quantity: 0,
-  });
+ 
 
   const handleShowType = (showType) => {
     setShowType(showType);
@@ -48,7 +28,7 @@ const BookWash = () => {
     return { ...booking, clothes: [...restBooking, option] };
   };
   const handleOptionsSelected = (options) => {
-    setBooking(updateBooking(options,booking));
+    setBooking(updateBooking(options, booking));
   };
 
   const submit = async () => {
@@ -59,6 +39,13 @@ const BookWash = () => {
       console.log({ errorBooking });
     }
   };
+
+  const getTotalForCat = (cat) =>
+    booking.clothes.reduce((total, booking) => {
+      if (booking.category == cat)
+        return booking.price * booking.quantity + total;
+      return total;
+    }, 0);
 
   return (
     <>
@@ -84,32 +71,31 @@ const BookWash = () => {
         </div>
         {/* different components for theirs cloths */}
         <div>
-          {
-            <WomenWear
-              onOptionsSelected={(option)=>handleOptionsSelected(option)}
-              key={showType}
-              type={showType}
-            />
-          }
+          <WomenWear
+            onOptionsSelected={(option) => handleOptionsSelected(option)}
+            key={showType}
+            clothes={booking.clothes}
+            type={showType}
+          />
         </div>
         {/* total prices */}
         <div className="flex flex-row items-center justify-center mx-14 mt-8">
           <div className="flex flex-col items-center justify-center mt-4 border-t border-gray-200 bg-white w-[150px] h-24 rounded-xl text-white shadow-xl ">
             <h3 style={{ fontSize: "10px" }}> MALE WEAR </h3>
             <p className="text-[13px] text-black font-semibold">
-              Total Price: {calculateMenTotalPrice()}
+              Total Price: {getTotalForCat("men").toFixed(2)}
             </p>
           </div>
           <div className="flex flex-col items-center justify-center mt-4 border-t border-gray-200 bg-white w-[150px] h-24 rounded-xl text-white shadow-xl ml-6">
             <h3 style={{ fontSize: "10px" }}> FEMALE WEAR </h3>
             <p className="text-[13px] text-black font-semibold">
-              Total Price: {calculateWomenTotalPrice()}
+              Total Price: {getTotalForCat("women").toFixed(2)}
             </p>
           </div>
           <div className="flex flex-col items-center justify-center mt-4 border-t border-gray-200 bg-white w-[150px] h-24 rounded-xl text-white shadow-xl ml-6">
             <h3 style={{ fontSize: "10px" }}> OTHERS </h3>
             <p className="text-[13px] text-black font-semibold">
-              Total Price: {calculateOtherTotalPrice()}
+              Total Price: {getTotalForCat("other").toFixed(2)}
             </p>
           </div>
         </div>
@@ -123,8 +109,8 @@ const BookWash = () => {
             <input
               type="text"
               name="HomeAddress"
-              value={formFields.HomeAddress}
-              onChange={updateFormData}
+              value={booking.address}
+              onChange={(e) => setBooking({...booking,address:e.target.value})}
               placeholder="Type here"
               className="input input-bordered w-[80%]"
             />
@@ -137,8 +123,8 @@ const BookWash = () => {
             <input
               type="text"
               name="PhoneNumber"
-              value={formFields.PhoneNumber}
-              onChange={updateFormData}
+              value={booking.phone}
+              onChange={(e) => setBooking({...booking,phone:e.target.value})}
               className="input input-bordered w-[80%]"
             />
           </div>
@@ -153,8 +139,8 @@ const BookWash = () => {
             <input
               type="date"
               name="date"
-              value={formFields.date}
-              onChange={updateFormData}
+              value={booking.pickup_date}
+              onChange={(e) => setBooking({...booking,time:e.target.value})}
               placeholder="Type here"
               className="input input-bordered w-[80%]"
             />
@@ -167,8 +153,8 @@ const BookWash = () => {
             <input
               type="time"
               name="time"
-              value={formFields.time}
-              onChange={updateFormData}
+              value={booking.pickup_date}
+              onChange={(e) => setBooking({...booking,time:e.target.value})}
               className="input input-bordered w-[80%]"
             />
           </div>
@@ -181,14 +167,12 @@ const BookWash = () => {
               className="btn w-full bg-[#3272a4] text-white text-[20px] hover:text-[#3272A4]"
             >
               {" "}
-              Confirm Order{" "}
+              Confirm Order (total:{ booking.total_price})
             </button>
           </div>
         </Link>
       </div>
-      <div>
-        {JSON.stringify(booking)}
-      </div>
+      <div>{JSON.stringify(booking)}</div>
     </>
   );
 };
