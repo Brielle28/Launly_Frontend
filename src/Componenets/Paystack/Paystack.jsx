@@ -3,7 +3,7 @@ import { PaystackButton } from 'react-paystack';
 import { UserContext } from '../context/Userprovider';
 import { UserProvider } from '../context/Userprovider';
 import './paystack.css';
-import { useParams, use } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 
 const Paystack = () => {
   const {authUser, booking} = useContext(UserContext)
