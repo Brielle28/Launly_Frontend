@@ -21,7 +21,7 @@ const ProtectedRoute = ({children}) => {
            console.log(response)
            setAuthUser(response.data)
            console.log(authUser, "this is the user details");
-          console.log(authUser);
+          console.log(authUser, "auth user");
         })
         .catch(function(error){
            console.log(error)

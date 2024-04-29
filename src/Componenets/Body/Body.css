@@ -1,12 +1,14 @@
 @media screen and (max-width: 420px) {
+  
   .hero {
-    /* border: 5px solid red !important; */
-    /* width: 100% !important; */
     display: flex !important;
     flex-direction: column-reverse !important;
     gap: 0px !important;
     margin-top: -40px !important;
     padding-top: 0 !important;
+    max-width: 420px !important;
+    width: 400px !important;
+    padding: 0 !important;
   }
   .hero1 {
     display: flex !important;
@@ -25,6 +27,7 @@
     align-items: center !important;
     justify-content: center !important;
     margin: 0px !important;
+    width: auto !important;
   }
   .hero2img1 {
     width: 300px !important;
