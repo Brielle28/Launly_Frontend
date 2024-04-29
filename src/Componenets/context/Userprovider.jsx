@@ -23,10 +23,10 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     setBooking({
       ...booking,
-      total_price: booking.clothes.reduce(
+      total_price: parseInt(booking.clothes.reduce(
         (acc, cuu) => cuu.price * cuu.quantity + acc,
         0
-      ).toFixed(2),
+      ).toFixed(2)),
       total_quantity: booking.clothes.reduce(
         (acc, cuu) => cuu.quantity + acc,
         0

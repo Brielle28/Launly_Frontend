@@ -1,15 +1,16 @@
+import "../Body/Body.css"
 const LeftSide = () => {
   return (
     <section>
-      <div className="flex flex-col">
-        <h2 className="w-[574px] mt-[100px] text-[50px]">
+      <div className="fading1 flex flex-col">
+        <h2 className=" fading1text w-[574px] mt-[100px] text-[50px]">
           no fading,only cleaning
         </h2>
-        <span className="w-[574px] flex mt-[19.02px] justify-center items-center">
+        <span className="fading1text2 w-[574px] flex mt-[19.02px] justify-center items-center">
           Your clothes are an investment, and we understand the importance of
           keeping them looking their best. That's why Launly uses only the
           gentlest cleaning methods and the highest quality detergents to ensure
-          that your garments stay clean and vibrant wash after wash.
+          that your garments stay fadingclean and vibrant wash after wash.
         </span>
       </div>
     </section>
@@ -19,7 +20,7 @@ const LeftSide = () => {
 const RightSide = () => {
   return (
     <section className="mt-[60px]">
-      <div className="flex gap-[30px] ">
+      <div className="fading2 flex gap-[30px]">
         <div>
           <div className="w-[272.5px] h-[223.2px] bg-[#E8F6FF] Boxes relative mt-[6rem] rounded-2xl">
             <span className="font-bold text-[20.8px] text-[#54595F] flex justify-center items-center pt-[3.5rem]">
@@ -39,7 +40,7 @@ const RightSide = () => {
           </div>
         </div>
 
-        <div>
+        <div className="fadingg">
           <div className="w-[272.5px] h-[223.2px] bg-[#E8F6FF] Boxes relative mt-[6rem] rounded-2xl">
             <span className="font-bold text-[20.8px] text-[#54595F] flex justify-center items-center pt-[3.5rem]">
               Trusted Detergent
@@ -66,8 +67,8 @@ const RightSide = () => {
 
 export const NoFadingAway = () => {
   return (
-    <div className=" mx-auto justify-center gap-[50px] mb-[100px]">
-      <div className="flex gap-[50px]">
+    <div className="fading mx-auto justify-center gap-[50px] mb-[100px]">
+      <div className="fading flex gap-[50px]">
         <LeftSide />
         <RightSide />
       </div>

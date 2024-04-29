@@ -1,5 +1,5 @@
 import { ServicesArray } from "./ServicesArray";
-
+import "../Ourservices/Ourservice.css"
 const Ourservice = () => {
   return (
     <section id="Service-Header">
@@ -9,11 +9,11 @@ const Ourservice = () => {
         </h3>
       </div>
 
-      <div className="flex flex-row gap-[20px] justify-center">
+      <div className="service flex flex-row gap-[20px] justify-center">
         {ServicesArray.map((item, i) => (
           <div
             key={i}
-            className="bg-[#E8F6FF] w-[285px] h-[367.23px] rounded-xl mb-[100px]"
+            className="mumu bg-[#E8F6FF] w-[285px] h-[367.23px] rounded-xl mb-[100px]"
           >
             <div className="flex justify-center w-[105.34px] h-[105.34px] rounded-full Boxes bg-white mt-[30px] mx-[89.83px]">
               <img

@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { accordionData } from "../../utils/accordionData";
 
+// mapping
 const LeftSide = ({ toggleAccordion, accordOpen }) => {
   return (
     <section>
       <div className="flex flex-col gap-8">
-        <h3 className="capitalize w-[600px] text-[64px] font-extrabold">
+        <h3 className="faqheading capitalize text-[64px] font-extrabold">
           frequently asked questions
         </h3>
-        <div className="accordion flex flex-col gap-[2px]">
+        <div className="faq11 accordion flex flex-col gap-[2px]">
           {accordionData.map(({ title, content }, idx) => (
             <AccordionItem
               key={idx}
@@ -26,7 +27,7 @@ const LeftSide = ({ toggleAccordion, accordOpen }) => {
 
 const Rightside = () => {
   return (
-    <div className="">
+    <div className="faq2">
       <img src="/10.png" className="w-[720px] relative"></img>
       <img
         src="/housework-concept-puzzled-householder-raises-fore-2022-02-05-01-55-14-utc-1.png"
@@ -44,7 +45,7 @@ const FrequentQuestions = () => {
   };
 
   return (
-    <div className="bg-[#fff] flex mx-auto px-8">
+    <div className="faq bg-[#fff] flex mx-auto px-8">
       <LeftSide toggleAccordion={toggleAccordion} accordOpen={accordOpen} />
       <Rightside />
     </div>
@@ -52,9 +53,10 @@ const FrequentQuestions = () => {
 };
 export default FrequentQuestions;
 
+//props
 function AccordionItem({ title, content, toggleAccordion, accordOpen }) {
   return (
-    <div className="accordion-item LongButtons transition duration-150">
+    <div className="faq1 accordion-item LongButtons transition duration-150">
       <h2
         className="flex items-center justify-between w-full p-5 font-medium  gap-3 text-xl"
         onClick={toggleAccordion}

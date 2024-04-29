@@ -3,12 +3,14 @@ import Button from "../Buttons/index.jsx";
 // import 'launly/src/styles.js'
 import "../styles.js";
 import { Link } from "react-router-dom";
+import "../Header/Header.css"
 
 const Header = () => {
   return (
     <>
       <header
         id="masthead"
+        className="head"
         itemscope="itemscope"
         itemtype="https://schema.org/WPHeader"
       >

@@ -14,7 +14,7 @@ const Paystack = () => {
   const refrr = query.get('bookingId')
   console.log({refrr});
   const publicKey = "pk_test_55a4d99e2813179d94dab988becd18f7d62c39e3";
-  const amount = 1000000;
+  const amount = booking.total_price * 100;
   const [email, setEmail] = useState(authUser.email);
   const [name, setName] = useState(authUser.name);
   const [phone, setPhone] = useState(booking.phone);
