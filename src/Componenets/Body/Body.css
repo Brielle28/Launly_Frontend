@@ -1,5 +1,7 @@
 @media screen and (max-width: 420px) {
   
+  
+
   .hero {
     display: flex !important;
     flex-direction: column-reverse !important;
@@ -64,14 +66,14 @@
     text-align: center !important;
   }
   .tiredtext {
-    width: 45% !important;
+    width: 55% !important;
     font-size: 14px !important;
     line-height: 16px;
     font-weight: bold !important;
     margin-left: 15px !important;
   }
   .tiredtext1 {
-    width: 60% !important;
+    width: 75% !important;
     font-size: 20px;
     font-weight: bold !important;
   }
@@ -85,8 +87,8 @@
   .tiredimg2 {
     width: 200px !important;
     height: 250px !important;
-    margin-top: 230px !important;
-    margin-left: -50px !important;
+    margin-top: 260px !important;
+    margin-left: -20px !important;
   }
   .fading{
     display: flex !important;
@@ -103,6 +105,8 @@
     font-size: 21px !important;
     font-weight: bold !important;
     margin-left: -95px !important;
+    width: 100% !important;
+    margin-left: 83px !important;
 
   }
   .fading1text2{
